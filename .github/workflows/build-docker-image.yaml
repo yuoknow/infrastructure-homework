@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
+        run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru/people:${{steps.vars.outputs.tag}}
 
       - name: Publish dockerimage to docker hub
-        run: docker push yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
+        run: docker push yuknow.cr.cloud.ru/people:${{steps.vars.outputs.tag}}
