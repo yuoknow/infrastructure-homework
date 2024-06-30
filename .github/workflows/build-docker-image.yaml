@@ -38,10 +38,11 @@ jobs:
 #        run: echo ::set-output name=tag::$(echo ${GITHUB_SHA:10})
 
       - name: Docker login
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: docker login yuknow.cr.cloud.ru -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        uses: docker/login-action@v3
+        with:
+          registry: yuknow.cr.cloud.ru
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build the Docker image
         run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
