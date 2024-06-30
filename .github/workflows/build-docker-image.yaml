@@ -47,5 +47,5 @@ jobs:
       - name: Build the Docker image
         run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru/people:${{steps.vars.outputs.tag}}
 
-      - name: Publish dockerimage to docker hub
+      - name: Publish Docker image to docker hub
         run: docker push yuknow.cr.cloud.ru/people:${{steps.vars.outputs.tag}}
