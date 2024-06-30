@@ -41,7 +41,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.dockerhub_username }}
           DOCKER_PASSWORD: ${{ secrets.dockerhub_password }}
-        run: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" yuknow.cr.cloud.ru
+        run: echo "$DOCKER_PASSWORD" | docker login yuknow.cr.cloud.ru -u ${{DOCKER_USERNAME}} --password-stdin
 
       - name: Build the Docker image
         run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
