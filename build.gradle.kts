@@ -1,16 +1,16 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
-
 
 plugins {
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.22" apply false
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.23" apply false
     id("ru.yoomoney.gradle.plugins.check-dependencies-plugin") version "9.0.1"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
-// 	  id("io.gitlab.arturbosch.detekt")
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
     jacoco
 }
 
@@ -18,12 +18,18 @@ allprojects {
     group = "com.stringconcat"
     version = "0.0.1-SNAPSHOT"
 
-//    apply(plugin = "io.gitlab.arturbosch.detekt")
-//    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    // detekt {
-    // 	  buildUponDefaultConfig = true
-    //  }
+    detekt {
+        buildUponDefaultConfig = true
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(true)
+        }
+    }
 
     repositories {
         mavenCentral()
@@ -36,7 +42,7 @@ allprojects {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
             jvmTarget = "1.8"
-            // allWarningsAsErrors = true
+            allWarningsAsErrors = true
         }
     }
 
@@ -45,9 +51,9 @@ allprojects {
             val version = requested.version?.toLowerCaseAsciiOnly()
             val isSnapshot = version?.contains("snapshot") ?: false
             val innerDependency = requested.module.group.startsWith("com.stringconcat")
-//            if (isSnapshot && !innerDependency) {
-//                throw IllegalArgumentException("Snapshot versions not allowed: ${requested.module}:${requested.version}")
-//            }
+            if (isSnapshot && !innerDependency) {
+                throw IllegalArgumentException("Snapshot versions not allowed: ${requested.module}:${requested.version}")
+            }
         }
     }
 }

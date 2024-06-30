@@ -38,6 +38,7 @@ class PeopleController(
             try {
                 UUID.fromString(id)
             } catch (e: IllegalArgumentException) {
+                println(e)
                 return ResponseEntity.badRequest().build()
             }
 

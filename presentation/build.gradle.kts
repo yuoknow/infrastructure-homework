@@ -11,8 +11,8 @@ dependencies {
     implementation(project(":useCasePeople"))
 
     // spring modules
-    implementation("org.springframework.boot:spring-boot-starter-webflux:2.2.1.BUILD-SNAPSHOT")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest:2.2.1.BUILD-SNAPSHOT")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.1")
+    implementation("org.springframework.boot:spring-boot-starter-data-rest:2.7.1")
 
     // tools
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
@@ -27,7 +27,7 @@ dependencies {
     // tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.2.1.BUILD-SNAPSHOT") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.1") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("io.projectreactor:reactor-test:3.3.0.RELEASE")

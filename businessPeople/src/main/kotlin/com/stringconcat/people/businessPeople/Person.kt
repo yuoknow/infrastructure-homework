@@ -5,6 +5,7 @@ import java.time.Period
 import java.util.UUID
 
 const val DEFAULT_ROBOT_AVATAR = "https://avatars.dicebear.com/v2/bottts/not%20found.svg"
+const val MAX_AGE = 40
 
 data class Person(
     val id: UUID = UUID.randomUUID(),
@@ -15,7 +16,7 @@ data class Person(
     var avatartUrl: String = DEFAULT_ROBOT_AVATAR,
     val favoriteQuote: String,
 ) {
-    fun mature(forDate: LocalDate = LocalDate.now()): Boolean = age(forDate) > 40
+    fun mature(forDate: LocalDate = LocalDate.now()): Boolean = age(forDate) > MAX_AGE
 
     fun age(forDate: LocalDate = LocalDate.now()): Year = Period.between(forDate, birthDate).years
 

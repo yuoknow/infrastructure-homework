@@ -12,7 +12,7 @@ class CreateNewPersonUseCase(
 ) {
     operator fun invoke(personInput: PersonCreationSummary): Person {
         val inputSex =
-            when (personInput.gender.toLowerCase()) {
+            when (personInput.gender.lowercase()) {
                 "male" -> Person.Sex.MAN
                 "female" -> Person.Sex.WOMAN
                 else -> Person.Sex.MAN
