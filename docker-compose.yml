@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: people
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - /var/pgdata/people:/var/lib/postgresql/data/pgdata
+
+  app:
+    image: yuknow.cr.cloud.ru/people:latest
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/people
+
+    restart: always
+
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    links:
+      - "postgres:database"

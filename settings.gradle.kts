@@ -1,3 +1,4 @@
+
 pluginManagement {
     repositories {
         maven { url = uri("https://repo.spring.io/milestone") }
@@ -12,6 +13,7 @@ pluginManagement {
         }
     }
 }
+
 rootProject.name = "people"
 include(":businessPeople")
 include(":presentation")
