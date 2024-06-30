@@ -16,32 +16,32 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v2
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Run build with Gradle Wrapper
-        run: ./gradlew build
-
-      - name: Rename jar to app.jar
-        run: mkdir -p build/result/ && mv build/libs/*.jar build/result/app.jar
-
-      - name: Get the version
-        id: vars
-        run: echo ::set-output name=tag::$(echo ${GITHUB_SHA:10})
+#      - uses: actions/checkout@v2
+#
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#
+#      - name: Build with Gradle
+#        uses: gradle/gradle-build-action@v2
+#
+#      - name: Run build with Gradle Wrapper
+#        run: ./gradlew build
+#
+#      - name: Rename jar to app.jar
+#        run: mkdir -p build/result/ && mv build/libs/*.jar build/result/app.jar
+#
+#      - name: Get the version
+#        id: vars
+#        run: echo ::set-output name=tag::$(echo ${GITHUB_SHA:10})
 
       - name: Docker login
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        run: docker login yuknow.cr.cloud.ru -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build the Docker image
         run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
