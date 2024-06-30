@@ -41,7 +41,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: docker login yuknow.cr.cloud.ru -u dac328358588917603936a5251abe29a -p 1e070dcfe385bbff7acc2fbbcae365e3
+        run: docker login yuknow.cr.cloud.ru -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build the Docker image
         run: docker build build/result/ -f building/package/Dockerfile -t yuknow.cr.cloud.ru:${{steps.vars.outputs.tag}}
